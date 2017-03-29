@@ -10,13 +10,13 @@ public class Main {
 
 	public static void main(String[] args) throws AddressException, IOException, ParseException, MessagingException {
 
-		IEmployeeDataSource employeeDataSource = new EmployeeDataSource();
+		IEmployeeDataSource employeeDataSource = new EmployeeFileDataSource("employee_data.txt");
 		IMessagingService messagingService = new MessagingService();
 
 		BirthdayService service = new BirthdayService(
 				employeeDataSource,
 				messagingService);
-		service.sendGreetings("employee_data.txt", new XDate(), "localhost", 25);
+		service.sendGreetings(new DateWrapper(), "localhost", 25);
 	}
 
 }
