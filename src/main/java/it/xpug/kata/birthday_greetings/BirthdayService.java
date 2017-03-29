@@ -15,6 +15,14 @@ import javax.mail.internet.MimeMessage;
 
 public class BirthdayService {
 
+	private final IMessagingService messagingService;
+	private final IEmployeeDataSource employeeDataSource;
+
+	public BirthdayService(IEmployeeDataSource employeeDataSource, IMessagingService messagingService) {
+		this.employeeDataSource = employeeDataSource;
+		this.messagingService = messagingService;
+	}
+
 	public void sendGreetings(String fileName, XDate xDate, String smtpHost, int smtpPort) throws IOException, ParseException, AddressException, MessagingException {
 		BufferedReader in = new BufferedReader(new FileReader(fileName));
 		String str = "";
