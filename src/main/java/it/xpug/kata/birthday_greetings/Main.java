@@ -11,12 +11,12 @@ public class Main {
 	public static void main(String[] args) throws AddressException, IOException, ParseException, MessagingException {
 
 		IEmployeeDataSource employeeDataSource = new EmployeeFileDataSource("employee_data.txt");
-		IMessagingService messagingService = new MessagingService();
+		IMessagingService messagingService = new EmailMessagingService("localhost", 25);
 
 		BirthdayService service = new BirthdayService(
 				employeeDataSource,
 				messagingService);
-		service.sendGreetings(new DateWrapper(), "localhost", 25);
+		service.sendGreetings(new DateWrapper());
 	}
 
 }

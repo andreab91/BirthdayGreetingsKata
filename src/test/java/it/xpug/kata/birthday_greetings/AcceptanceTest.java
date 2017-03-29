@@ -1,11 +1,9 @@
 package it.xpug.kata.birthday_greetings;
 
 import static org.junit.Assert.*;
-
 import org.junit.*;
 
 import com.dumbster.smtp.*;
-
 
 public class AcceptanceTest {
 
@@ -19,7 +17,7 @@ public class AcceptanceTest {
 		mailServer = SimpleSmtpServer.start(NONSTANDARD_PORT);
 
 		IEmployeeDataSource employeeDataSource = new EmployeeFileDataSource(fileName);
-		IMessagingService messagingService = new MessagingService();
+		IMessagingService messagingService = new EmailMessagingService("localhost", NONSTANDARD_PORT);
 
 		birthdayService = new BirthdayService(
 				employeeDataSource,
@@ -35,7 +33,7 @@ public class AcceptanceTest {
 	@Test
 	public void willSendGreetings_whenItsSomebodysBirthday() throws Exception {
 
-		birthdayService.sendGreetings(new DateWrapper("2008/10/08"), "localhost", NONSTANDARD_PORT);
+		birthdayService.sendGreetings(new DateWrapper("2008/10/08"));
 
 		assertEquals("message not sent?", 1, mailServer.getReceivedEmailSize());
 		SmtpMessage message = (SmtpMessage) mailServer.getReceivedEmail().next();
@@ -48,7 +46,7 @@ public class AcceptanceTest {
 
 	@Test
 	public void willNotSendEmailsWhenNobodysBirthday() throws Exception {
-		birthdayService.sendGreetings(new DateWrapper("2008/01/01"), "localhost", NONSTANDARD_PORT);
+		birthdayService.sendGreetings(new DateWrapper("2008/01/01"));
 
 		assertEquals("what? messages?", 0, mailServer.getReceivedEmailSize());
 	}
