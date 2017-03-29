@@ -20,13 +20,18 @@ public class EmployeeFileDataSource implements IEmployeeDataSource {
 
     private void readEmployees(String fileName) throws IOException, ParseException {
         BufferedReader in = new BufferedReader(new FileReader(fileName));
-        String str = "";
-        str = in.readLine(); // skip header
+        skipHeader(in);
+
+        String str;
         while ((str = in.readLine()) != null) {
             String[] employeeData = str.split(", ");
             Employee employee = new Employee(employeeData[1], employeeData[0], employeeData[2], employeeData[3]);
             employees.add(employee);
         }
+    }
+
+    private void skipHeader(BufferedReader in) throws IOException {
+        in.readLine();
     }
 
     public List<Employee> getEmployeesBornToday(DateWrapper date) {

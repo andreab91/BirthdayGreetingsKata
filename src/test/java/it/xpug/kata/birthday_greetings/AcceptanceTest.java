@@ -32,7 +32,6 @@ public class AcceptanceTest {
 
 	@Test
 	public void willSendGreetings_whenItsSomebodysBirthday() throws Exception {
-
 		birthdayService.sendGreetings(new DateWrapper("2008/10/08"));
 
 		assertEquals("message not sent?", 1, mailServer.getReceivedEmailSize());
@@ -47,7 +46,6 @@ public class AcceptanceTest {
 	@Test
 	public void willNotSendEmailsWhenNobodysBirthday() throws Exception {
 		birthdayService.sendGreetings(new DateWrapper("2008/01/01"));
-
 		assertEquals("what? messages?", 0, mailServer.getReceivedEmailSize());
 	}
 }
